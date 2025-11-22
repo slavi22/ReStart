@@ -3,9 +3,9 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar.tsx";
-import { AppSidebar } from "@/components/app-sidebar.tsx";
-import { Separator } from "@/components/ui/separator";
+} from "@/components/ui/sidebar.tsx"
+import { AppSidebar } from "@/components/app-sidebar.tsx"
+import { Separator } from "@/components/ui/separator"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/breadcrumb.tsx";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslation } from "react-i18next";
+import { NavUsers } from "@/components/account";
+import { useAuth } from "@/features/auth/context/auth-context";
 
 export default function RootLayout() {
   const { t } = useTranslation();
@@ -27,7 +29,7 @@ export default function RootLayout() {
     if (location.pathname === '/') return null;
     return t('sidebar.assessment');
   };
-
+  const { user } = useAuth();
   const pageTitle = getPageTitle();
 
   return (
@@ -54,8 +56,12 @@ export default function RootLayout() {
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <LanguageSwitcher />
+          <div style={{display:"flex"}}>
+            <LanguageSwitcher />
+            <NavUsers user={user} />
+          </div>
         </header>
+
         <div className="flex flex-1 flex-col gap-4 p-4">
           <Outlet />
         </div>

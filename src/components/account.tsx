@@ -16,12 +16,6 @@ import {
 } from "@/components/ui/avatar"
 
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
-
-import {
   Sheet,
   SheetTrigger,
   SheetContent,
@@ -30,35 +24,36 @@ import {
   SheetDescription,
   SheetClose,
 } from "@/components/ui/sheet"
+import { useContext } from "react";
+import { useAuth } from "@/features/auth/context/auth-context";
 interface User {
   name: string;
   email: string;
   avatar?: string;
 }
+
 export function NavUsers({
   user,
 }: {
   user: User | null
 }) {
+
+  const {logout} = useAuth()
+
+
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <Sheet>
+      <Sheet>
           <SheetTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user?.avatar} alt={user?.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user?.name}</span>
-                <span className="truncate text-xs">{user?.email}</span>
-              </div>
-              <ChevronsUpDown className="ml-auto size-4" />
-            </SidebarMenuButton>
+              <button className="flex items-center gap-2 rounded-full bg-background px-3 py-2 text-sm shadow-sm hover:bg-accent">
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={user?.avatar} alt={user?.name} />
+                  <AvatarFallback className="rounded-full">CN</AvatarFallback>
+                </Avatar>
+                <span className="max-w-[120px] truncate font-medium">
+                  {user?.name}
+                </span>
+                <ChevronsUpDown className="h-4 w-4 opacity-60" />
+              </button>
           </SheetTrigger>
 
           {/* 🔥 Force right side */}
@@ -103,15 +98,13 @@ export function NavUsers({
               <hr className="my-2" />
 
               <SheetClose asChild>
-                <button className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-red-500 hover:bg-accent">
+                <button className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-red-500 hover:bg-accent" onClick={logout}>
                   <LogOut className="size-4" />
                   Log out
                 </button>
               </SheetClose>
             </div>
           </SheetContent>
-        </Sheet>
-      </SidebarMenuItem>
-    </SidebarMenu>
-  )
+      </Sheet>
+  );
 }
