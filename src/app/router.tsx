@@ -1,6 +1,15 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import RootLayout from "@/components/layouts/root-layout.tsx";
+<<<<<<< Updated upstream
 import AssessmentRoute from "./routes/assessment";
+=======
+import { NavUsers } from "@/components/account";
+const user = {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  };
+>>>>>>> Stashed changes
 
 export const router = createBrowserRouter([
   {
@@ -16,5 +25,10 @@ export const router = createBrowserRouter([
         element: <AssessmentRoute />,
       },
     ],
+  },
+  {
+    path: "/account",
+    element: <NavUsers user={user} />,
+    children: [],
   },
 ]);
