@@ -1,6 +1,12 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "@/components/layouts/root-layout.tsx";
 import AssessmentRoute from "./routes/assessment";
+import { NavUsers } from "@/components/account";
+const user = {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  };
 import LoginRoute from "./routes/login";
 import RegisterRoute from "./routes/register";
 import CoursesPage from "@/features/courses/courses-page";
@@ -68,5 +74,10 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/account",
+    element: <NavUsers user={user} />,
+    children: [],
   },
 ]);

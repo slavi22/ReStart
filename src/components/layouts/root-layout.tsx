@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router";
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
+  SidebarTrigger
 } from "@/components/ui/sidebar.tsx";
 import { AppSidebar } from "@/components/app-sidebar.tsx";
 import { Separator } from "@/components/ui/separator";
@@ -12,10 +12,12 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb.tsx";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslation } from "react-i18next";
+import { NavUsers } from "@/components/account";
+import { useAuth } from "@/features/auth/context/auth-context";
 import { AssessmentProvider } from "@/features/assessment/context/assessment-context";
 
 export default function RootLayout() {
@@ -24,17 +26,17 @@ export default function RootLayout() {
 
   const getPageTitle = () => {
     const path = location.pathname;
-    if (path === '/login') return t('sidebar.login');
-    if (path === '/register') return t('sidebar.register');
-    if (path === '/') return null;
-    if (path === '/assessment') return t('sidebar.assessment');
-    if (path === '/personalized-articles') return t('sidebar.personalizedArticles');
-    if (path.startsWith('/personalized-articles/')) return t('articles.readArticle', 'Article');
-    if (path === '/recommended-courses') return t('sidebar.recommendedCourses');
-    
-    return t('sidebar.assessment'); // Fallback
-  };
+    if (path === "/login") return t("sidebar.login");
+    if (path === "/register") return t("sidebar.register");
+    if (path === "/") return null;
+    if (path === "/assessment") return t("sidebar.assessment");
+    if (path === "/personalized-articles") return t("sidebar.personalizedArticles");
+    if (path.startsWith("/personalized-articles/")) return t("articles.readArticle", "Article");
+    if (path === "/recommended-courses") return t("sidebar.recommendedCourses");
 
+    return t("sidebar.assessment"); // Fallback
+  };
+  const { user } = useAuth();
   const pageTitle = getPageTitle();
 
   return (
@@ -49,7 +51,7 @@ export default function RootLayout() {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href="/">{t('app.name')}</BreadcrumbLink>
+                    <BreadcrumbLink href="/">{t("app.name")}</BreadcrumbLink>
                   </BreadcrumbItem>
                   {pageTitle && (
                     <>
@@ -62,8 +64,12 @@ export default function RootLayout() {
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
-            <LanguageSwitcher />
+            <div style={{ display: "flex" }}>
+              <LanguageSwitcher />
+              <NavUsers user={user} />
+            </div>
           </header>
+
           <div className="flex flex-1 flex-col gap-4 p-4">
             <Outlet />
           </div>
