@@ -3,6 +3,7 @@
     "name": "ReStart",
     "tagline": "Your career, reinvented."
   },
+  "language": "Language",
   "home": {
     "hero": {
       "description": "ReStart helps you discover your potential and transition into a new career path with personalized AI-driven guidance.",

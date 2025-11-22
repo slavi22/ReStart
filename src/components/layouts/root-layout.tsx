@@ -14,7 +14,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb.tsx";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslation } from "react-i18next";
 import { NavUsers } from "@/components/account";
 import { useAuth } from "@/features/auth/context/auth-context";
@@ -65,7 +64,6 @@ export default function RootLayout() {
               </Breadcrumb>
             </div>
             <div style={{ display: "flex" }}>
-              <LanguageSwitcher />
               <NavUsers user={user} />
             </div>
           </header>
