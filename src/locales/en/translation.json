@@ -7,7 +7,8 @@
     "hero": {
       "description": "ReStart helps you discover your potential and transition into a new career path with personalized AI-driven guidance.",
       "getStarted": "Get Started",
-      "hasAccount": "I already have an account"
+      "hasAccount": "I already have an account",
+      "beginAssessment": "Begin Assessment"
     },
     "features": {
       "assessment": {
@@ -27,6 +28,8 @@
   "sidebar": {
     "dashboard": "Dashboard",
     "assessment": "Assessment",
+    "personalizedArticles": "Personalized Articles",
+    "recommendedCourses": "Recommended Courses",
     "login": "Login",
     "register": "Register",
     "logout": "Logout",
@@ -87,6 +90,8 @@
       "company": "Company / Organization",
       "companyPlaceholder": "e.g. ABC Construction",
       "duration": "Duration",
+      "startDate": "Start Date",
+      "endDate": "End Date",
       "durationPlaceholder": "e.g. 2020 - Present",
       "desc": "Description",
       "descPlaceholder": "Briefly describe what you did...",
@@ -110,7 +115,8 @@
       },
       "back": "Back",
       "complete": "Complete Assessment",
-      "analyzing": "Analyzing Profile..."
+      "analyzing": "Analyzing Profile...",
+      "waitMessage": "This may take up to a minute..."
     },
     "results": {
       "title": "Your Personalized Career Path",
@@ -119,12 +125,37 @@
       "estimatedTime": "Estimated Time",
       "marketDemand": "Market Demand",
       "gapAnalysis": "Competency Gap Analysis",
-      "missing": "Missing",
+      "missing": "Skill Gap",
+      "gapLevels": {
+        "critical": "Critical Gap",
+        "significant": "Significant Gap",
+        "moderate": "Moderate Gap",
+        "minor": "Minor Gap"
+      },
       "strengths": "Your Strengths",
       "courses": "Recommended Courses",
       "newAssessment": "Start New Assessment",
-      "startPath": "Start Learning Path"
+      "startPath": "Learn via personalized articles",
+      "viewCourses": "View Courses"
     }
+  },
+  "courses": {
+    "title": "Personalized Articles",
+    "subtitle": "Curated resources to help you bridge your competency gaps.",
+    "readArticle": "Read Article",
+    "recommendedCourse": "Recommended Course",
+    "startLearning": "Start Learning",
+    "viewCourse": "View Course"
+  },
+  "articles": {
+    "back": "Back to Articles",
+    "mastering": "Mastering",
+    "recommendedResource": "Recommended Resource",
+    "startCourse": "Start Course"
+  },
+  "recommendedCourses": {
+    "title": "Recommended Courses",
+    "subtitle": "Top-rated courses selected to accelerate your career transition."
   },
   "auth": {
     "loginTitle": "Login",

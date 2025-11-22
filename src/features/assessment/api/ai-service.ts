@@ -2,7 +2,7 @@ import type { AssessmentData, AiInsight } from "../types";
 import { analyzeProfile as mockAnalyze } from "./mock-ai";
 import { generateGeminiInsight } from "./gemini-service";
 
-export const analyzeProfile = async (data: AssessmentData): Promise<AiInsight> => {
+export const analyzeProfile = async (data: AssessmentData): Promise<{ en: AiInsight, bg: AiInsight }> => {
   const useRealAi = import.meta.env.VITE_USE_REAL_AI === 'true';
   
   if (useRealAi) {

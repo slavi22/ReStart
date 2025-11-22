@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import type { AssessmentData, AssessmentStep, AiInsight, AssessmentContextType } from '../types';
 import { analyzeProfile } from '../api/ai-service';
+import { useTranslation } from 'react-i18next';
 
 const initialData: AssessmentData = {
   fullName: '',
@@ -18,8 +19,11 @@ const AssessmentContext = createContext<AssessmentContextType | undefined>(undef
 export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState<AssessmentStep>('basic-info');
   const [data, setData] = useState<AssessmentData>(initialData);
-  const [insights, setInsights] = useState<AiInsight | null>(null);
+  const [allInsights, setAllInsights] = useState<{ en: AiInsight, bg: AiInsight } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { i18n } = useTranslation();
+
+  const insights = allInsights ? (i18n.language === 'bg' ? allInsights.bg : allInsights.en) : null;
 
   const updateData = (newData: Partial<AssessmentData>) => {
     setData((prev) => ({ ...prev, ...newData }));
@@ -29,7 +33,7 @@ export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true);
     try {
       const result = await analyzeProfile(data);
-      setInsights(result);
+      setAllInsights(result);
       setCurrentStep('results');
     } catch (error) {
       console.error("Failed to analyze profile", error);
@@ -40,7 +44,7 @@ export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
 
   const resetAssessment = () => {
     setData(initialData);
-    setInsights(null);
+    setAllInsights(null);
     setCurrentStep('basic-info');
   };
 

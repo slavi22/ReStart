@@ -5,9 +5,11 @@ import {
   BookOpen,
   LogIn,
   UserPlus,
+  FileText,
 } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { useAuth } from "@/features/auth/context/auth-context"
+import { useAssessment } from "@/features/assessment/context/assessment-context"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -23,6 +25,7 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
   const { user, isAuthenticated } = useAuth();
+  const { insights } = useAssessment();
 
   const navItems = isAuthenticated
     ? [
@@ -32,6 +35,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: BookOpen,
           isActive: true,
         },
+        ...(insights ? [
+          {
+            title: t('sidebar.personalizedArticles'),
+            url: "/personalized-articles",
+            icon: FileText,
+          },
+          {
+            title: t('sidebar.recommendedCourses'),
+            url: "/recommended-courses",
+            icon: BookOpen,
+          }
+        ] : []),
       ]
     : [
         {

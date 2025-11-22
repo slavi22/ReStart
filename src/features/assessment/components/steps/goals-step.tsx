@@ -63,10 +63,13 @@ export function GoalsStep() {
           </Button>
           <Button onClick={submitAssessment} disabled={!data.targetRole || !data.availability || isLoading}>
             {isLoading ? (
-              <>
+              <div className="flex items-center">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {t('assessment.goals.analyzing')}
-              </>
+                <span>{t('assessment.goals.analyzing')}</span>
+                <span className="ml-2 text-xs opacity-70 hidden sm:inline-block">
+                  ({t('assessment.goals.waitMessage')})
+                </span>
+              </div>
             ) : (
               t('assessment.goals.complete')
             )}

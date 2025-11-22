@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/breadcrumb.tsx";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { useTranslation } from "react-i18next";
+import { AssessmentProvider } from "@/features/assessment/context/assessment-context";
 
 export default function RootLayout() {
   const { t } = useTranslation();
@@ -31,35 +32,37 @@ export default function RootLayout() {
   const pageTitle = getPageTitle();
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/">{t('app.name')}</BreadcrumbLink>
-                </BreadcrumbItem>
-                {pageTitle && (
-                  <>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </>
-                )}
-              </BreadcrumbList>
-            </Breadcrumb>
+    <AssessmentProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/">{t('app.name')}</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  {pageTitle && (
+                    <>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </>
+                  )}
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <LanguageSwitcher />
+          </header>
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <Outlet />
           </div>
-          <LanguageSwitcher />
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <Outlet />
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+        </SidebarInset>
+      </SidebarProvider>
+    </AssessmentProvider>
   );
 }

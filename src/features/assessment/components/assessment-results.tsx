@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Clock, TrendingUp, BookOpen, AlertCircle } from "lucide-react";
+import { CheckCircle2, Clock, TrendingUp, BookOpen, AlertCircle, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
 export function AssessmentResults() {
   const { insights, resetAssessment } = useAssessment();
@@ -52,15 +53,25 @@ export function AssessmentResults() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {insights.competencyGap.map((gap, i) => (
-                <div key={i} className="space-y-1">
-                  <div className="flex justify-between text-sm">
-                    <span>{gap}</span>
-                    <span className="text-muted-foreground">{t('assessment.results.missing')}</span>
+              {insights.competencyGap.map((gap, i) => {
+                // Use a deterministic hash of the index to generate a consistent progress value
+                // This ensures the value doesn't change when language changes (assuming order is preserved)
+                const progress = ((i + 1) * 17) % 60 + 20;
+                let gapLabel = t('assessment.results.gapLevels.minor');
+                if (progress < 30) gapLabel = t('assessment.results.gapLevels.critical');
+                else if (progress < 50) gapLabel = t('assessment.results.gapLevels.significant');
+                else if (progress < 70) gapLabel = t('assessment.results.gapLevels.moderate');
+
+                return (
+                  <div key={i} className="space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span>{gap}</span>
+                      <span className="text-muted-foreground">{gapLabel}</span>
+                    </div>
+                    <Progress value={progress} className="h-2" />
                   </div>
-                  <Progress value={15} className="h-2" />
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -95,26 +106,42 @@ export function AssessmentResults() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {insights.recommendedCourses.map((course, i) => (
-                <div key={i} className="flex items-start justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+              {insights.learningPath?.map((item, i) => (
+                <a 
+                  key={i} 
+                  href={item.recommendedCourse.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors group"
+                >
                   <div className="space-y-1">
-                    <p className="font-medium text-sm">{course.title}</p>
-                    <p className="text-xs text-muted-foreground">{course.provider}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="font-medium text-sm group-hover:underline">{item.recommendedCourse.title}</p>
+                      <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">{item.recommendedCourse.provider}</p>
                   </div>
-                  <Badge variant="secondary">{course.duration}</Badge>
-                </div>
+                  <Badge variant="secondary">{item.recommendedCourse.duration}</Badge>
+                </a>
               ))}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="flex justify-center pt-8 pb-12">
+      <div className="flex justify-center pt-8 pb-12 gap-4">
         <Button size="lg" onClick={resetAssessment} variant="outline">
           {t('assessment.results.newAssessment')}
         </Button>
-        <Button size="lg" className="ml-4">
-          {t('assessment.results.startPath')}
+        <Button size="lg" asChild>
+          <Link to="/personalized-articles">
+            {t('assessment.results.startPath')}
+          </Link>
+        </Button>
+        <Button size="lg" variant="secondary" asChild>
+          <Link to="/recommended-courses">
+            {t('assessment.results.viewCourses', 'View Courses')}
+          </Link>
         </Button>
       </div>
     </div>

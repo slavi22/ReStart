@@ -30,7 +30,11 @@ export type AiInsight = {
   careerOutlook: string;
   strengths: string[];
   weaknesses: string[];
-  recommendedCourses: { title: string; provider: string; duration: string }[];
+  learningPath: {
+    topic: string;
+    articleContent: string;
+    recommendedCourse: { title: string; provider: string; duration: string; url: string };
+  }[];
 };
 
 export type AssessmentStep = 'basic-info' | 'skills' | 'experience' | 'goals' | 'results';
