@@ -24,7 +24,6 @@ import {
   SheetDescription,
   SheetClose,
 } from "@/components/ui/sheet"
-import { useContext } from "react";
 import { useAuth } from "@/features/auth/context/auth-context";
 interface User {
   name: string;
