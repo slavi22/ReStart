@@ -1,19 +1,21 @@
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { AssessmentStep } from "../types";
+import { useTranslation } from "react-i18next";
 
 type StepIndicatorProps = {
   currentStep: AssessmentStep;
 };
 
-const steps: { id: AssessmentStep; label: string }[] = [
-  { id: 'basic-info', label: 'Basic Info' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'goals', label: 'Goals' },
+const steps: { id: AssessmentStep; labelKey: string }[] = [
+  { id: 'basic-info', labelKey: 'basicInfo' },
+  { id: 'skills', labelKey: 'skills' },
+  { id: 'experience', labelKey: 'experience' },
+  { id: 'goals', labelKey: 'goals' },
 ];
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
+  const { t } = useTranslation();
   const currentStepIndex = steps.findIndex((s) => s.id === currentStep);
 
   return (
@@ -54,7 +56,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                   isCurrent ? "text-foreground" : "text-muted-foreground"
                 )}
               >
-                {step.label}
+                {t(`assessment.steps.${step.labelKey}`)}
               </span>
             </div>
           );

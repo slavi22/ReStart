@@ -30,15 +30,15 @@ import {
   SheetDescription,
   SheetClose,
 } from "@/components/ui/sheet"
-
+interface User {
+  name: string;
+  email: string;
+  avatar?: string;
+}
 export function NavUsers({
   user,
 }: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
+  user: User | null
 }) {
   return (
     <SidebarMenu>

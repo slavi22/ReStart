@@ -40,7 +40,7 @@ export type AssessmentContextType = {
   data: AssessmentData;
   insights: AiInsight | null;
   isLoading: boolean;
-  setStep: (step: AssessmentStep) => void;
+  setCurrentStep: (step: AssessmentStep) => void;
   updateData: (data: Partial<AssessmentData>) => void;
   submitAssessment: () => Promise<void>;
   resetAssessment: () => void;

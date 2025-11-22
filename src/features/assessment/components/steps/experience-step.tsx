@@ -6,9 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Plus } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function ExperienceStep() {
-  const { data, updateData, setStep } = useAssessment();
+  const { data, updateData, setCurrentStep } = useAssessment();
   const [isAdding, setIsAdding] = useState(false);
   const [newExp, setNewExp] = useState({
     role: "",
@@ -16,6 +17,7 @@ export function ExperienceStep() {
     duration: "",
     description: ""
   });
+  const { t } = useTranslation();
 
   const addExperience = () => {
     if (newExp.role && newExp.company) {
@@ -36,8 +38,10 @@ export function ExperienceStep() {
   return (
     <Card className="w-full max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       <CardHeader>
-        <CardTitle>Work Experience</CardTitle>
-        <CardDescription>Tell us about your professional background.</CardDescription>
+        <CardTitle>{t('assessment.experience.title')}</CardTitle>
+        <CardDescription>
+          {t('assessment.experience.description')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4">
@@ -61,45 +65,45 @@ export function ExperienceStep() {
             <div className="p-4 border rounded-lg bg-muted/30 space-y-4 animate-in fade-in zoom-in-95">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="role">Role Title</Label>
+                  <Label htmlFor="role">{t('assessment.experience.role')}</Label>
                   <Input
                     id="role"
                     value={newExp.role}
                     onChange={(e) => setNewExp({ ...newExp, role: e.target.value })}
-                    placeholder="e.g. Senior Developer"
+                    placeholder={t('assessment.experience.rolePlaceholder')}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="company">Company</Label>
+                  <Label htmlFor="company">{t('assessment.experience.company')}</Label>
                   <Input
                     id="company"
                     value={newExp.company}
                     onChange={(e) => setNewExp({ ...newExp, company: e.target.value })}
-                    placeholder="e.g. Tech Corp"
+                    placeholder={t('assessment.experience.companyPlaceholder')}
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="duration">Duration</Label>
+                <Label htmlFor="duration">{t('assessment.experience.duration')}</Label>
                 <Input
                   id="duration"
                   value={newExp.duration}
                   onChange={(e) => setNewExp({ ...newExp, duration: e.target.value })}
-                  placeholder="e.g. 2020 - Present"
+                  placeholder={t('assessment.experience.durationPlaceholder')}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">{t('assessment.experience.desc')}</Label>
                 <Textarea
                   id="description"
                   value={newExp.description}
                   onChange={(e) => setNewExp({ ...newExp, description: e.target.value })}
-                  placeholder="Briefly describe your responsibilities..."
+                  placeholder={t('assessment.experience.descPlaceholder')}
                 />
               </div>
               <div className="flex gap-2 justify-end">
-                <Button variant="ghost" onClick={() => setIsAdding(false)}>Cancel</Button>
-                <Button onClick={addExperience} disabled={!newExp.role || !newExp.company}>Add</Button>
+                <Button variant="ghost" onClick={() => setIsAdding(false)}>{t('assessment.experience.cancel')}</Button>
+                <Button onClick={addExperience} disabled={!newExp.role || !newExp.company}>{t('assessment.experience.save')}</Button>
               </div>
             </div>
           ) : (
@@ -108,17 +112,17 @@ export function ExperienceStep() {
               className="w-full border-dashed"
               onClick={() => setIsAdding(true)}
             >
-              <Plus className="mr-2 h-4 w-4" /> Add Experience
+              <Plus className="mr-2 h-4 w-4" /> {t('assessment.experience.add')}
             </Button>
           )}
         </div>
 
         <div className="flex justify-between pt-4">
-          <Button variant="outline" onClick={() => setStep('skills')}>
-            Back
+          <Button variant="outline" onClick={() => setCurrentStep('skills')}>
+            {t('assessment.experience.back')}
           </Button>
-          <Button onClick={() => setStep('goals')}>
-            Next Step
+          <Button onClick={() => setCurrentStep('goals')}>
+            {t('assessment.experience.next')}
           </Button>
         </div>
       </CardContent>

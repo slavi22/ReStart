@@ -7,11 +7,13 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { X, Plus } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function SkillsStep() {
-  const { data, updateData, setStep } = useAssessment();
+  const { data, updateData, setCurrentStep } = useAssessment();
   const [newSkill, setNewSkill] = useState("");
   const [newSkillLevel, setNewSkillLevel] = useState([3]);
+  const { t } = useTranslation();
 
   const addSkill = () => {
     if (newSkill.trim()) {
@@ -32,18 +34,20 @@ export function SkillsStep() {
   return (
     <Card className="w-full max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
       <CardHeader>
-        <CardTitle>Skills Assessment</CardTitle>
-        <CardDescription>List your current technical skills and proficiency levels (1-5).</CardDescription>
+        <CardTitle>{t('assessment.skills.title')}</CardTitle>
+        <CardDescription>
+          {t('assessment.skills.description')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-4 p-4 border rounded-lg bg-muted/50">
           <div className="grid gap-4">
             <div className="space-y-2">
-              <Label htmlFor="skillName">Add a Skill</Label>
+              <Label htmlFor="skillName">{t('assessment.skills.addSkill')}</Label>
               <div className="flex gap-2">
                 <Input
                   id="skillName"
-                  placeholder="e.g. React, Python, Project Management"
+                  placeholder={t('assessment.skills.placeholder')}
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && addSkill()}
@@ -55,13 +59,9 @@ export function SkillsStep() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <Label>Proficiency Level: {newSkillLevel[0]}/5</Label>
+                <Label>{t('assessment.skills.proficiency')}: {newSkillLevel[0]}/5</Label>
                 <span className="text-xs text-muted-foreground">
-                  {newSkillLevel[0] === 1 && "Beginner"}
-                  {newSkillLevel[0] === 2 && "Elementary"}
-                  {newSkillLevel[0] === 3 && "Intermediate"}
-                  {newSkillLevel[0] === 4 && "Advanced"}
-                  {newSkillLevel[0] === 5 && "Expert"}
+                  {t(`assessment.skills.levels.${newSkillLevel[0]}`)}
                 </span>
               </div>
               <Slider
@@ -76,9 +76,11 @@ export function SkillsStep() {
         </div>
 
         <div className="space-y-2">
-          <Label>Your Skills</Label>
+          <Label>{t('assessment.skills.yourSkills')}</Label>
           {data.skills.length === 0 && (
-            <p className="text-sm text-muted-foreground italic">No skills added yet.</p>
+            <p className="text-sm text-muted-foreground italic">
+              {t('assessment.skills.noSkills')}
+            </p>
           )}
           <div className="flex flex-wrap gap-2">
             {data.skills.map((skill, index) => (
@@ -97,11 +99,11 @@ export function SkillsStep() {
         </div>
 
         <div className="flex justify-between pt-4">
-          <Button variant="outline" onClick={() => setStep('basic-info')}>
-            Back
+          <Button variant="outline" onClick={() => setCurrentStep('basic-info')}>
+            {t('assessment.skills.back')}
           </Button>
-          <Button onClick={() => setStep('experience')} disabled={data.skills.length === 0}>
-            Next Step
+          <Button onClick={() => setCurrentStep('experience')} disabled={data.skills.length === 0}>
+            {t('assessment.skills.next')}
           </Button>
         </div>
       </CardContent>

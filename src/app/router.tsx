@@ -1,15 +1,16 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter } from "react-router";
 import RootLayout from "@/components/layouts/root-layout.tsx";
-<<<<<<< Updated upstream
 import AssessmentRoute from "./routes/assessment";
-=======
 import { NavUsers } from "@/components/account";
 const user = {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   };
->>>>>>> Stashed changes
+import LoginRoute from "./routes/login";
+import RegisterRoute from "./routes/register";
+import { HomePage } from "@/features/home/home-page";
+import { ProtectedRoute } from "@/components/protected-route";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +19,23 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/assessment" replace />,
+        element: <HomePage />,
       },
       {
         path: "assessment",
-        element: <AssessmentRoute />,
+        element: (
+          <ProtectedRoute>
+            <AssessmentRoute />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "login",
+        element: <LoginRoute />,
+      },
+      {
+        path: "register",
+        element: <RegisterRoute />,
       },
     ],
   },
