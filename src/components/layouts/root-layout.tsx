@@ -23,10 +23,16 @@ export default function RootLayout() {
   const location = useLocation();
 
   const getPageTitle = () => {
-    if (location.pathname === '/login') return t('sidebar.login');
-    if (location.pathname === '/register') return t('sidebar.register');
-    if (location.pathname === '/') return null;
-    return t('sidebar.assessment');
+    const path = location.pathname;
+    if (path === '/login') return t('sidebar.login');
+    if (path === '/register') return t('sidebar.register');
+    if (path === '/') return null;
+    if (path === '/assessment') return t('sidebar.assessment');
+    if (path === '/personalized-articles') return t('sidebar.personalizedArticles');
+    if (path.startsWith('/personalized-articles/')) return t('articles.readArticle', 'Article');
+    if (path === '/recommended-courses') return t('sidebar.recommendedCourses');
+    
+    return t('sidebar.assessment'); // Fallback
   };
 
   const pageTitle = getPageTitle();

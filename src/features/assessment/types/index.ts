@@ -33,7 +33,13 @@ export type AiInsight = {
   learningPath: {
     topic: string;
     articleContent: string;
-    recommendedCourse: { title: string; provider: string; duration: string; url: string };
+    recommendedCourses: { 
+      title: string; 
+      provider: string; 
+      duration: string; 
+      url: string;
+      isPaid: boolean;
+    }[];
   }[];
 };
 

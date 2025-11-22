@@ -23,41 +23,75 @@ export const generateGeminiInsight = async (data: AssessmentData): Promise<{ en:
 
     CONTEXT:
     The user might be a complete beginner or a career switcher (e.g., a construction worker, retail associate) looking to break into tech.
-    If they have no technical skills, focus on transferable soft skills (leadership, time management, etc.) and recommend foundational courses.
-    Be encouraging and realistic.
     
+    LOGIC RULES FOR RECOMMENDATIONS:
+    1. IF the user has NO technical background (e.g. Cashier, Driver, Waiter) and NO coding skills:
+       - Do NOT recommend advanced roles like "DevOps Engineer", "Cloud Architect", or "Senior Developer".
+       - Do NOT recommend advanced topics like Kubernetes, Microservices, or System Design immediately.
+       - RECOMMEND entry-level gateways: "IT Support Specialist", "Manual QA Tester", "Junior Data Analyst", or "Junior Web Developer".
+       - Start with FOUNDATIONAL topics: "Computer Basics", "Intro to Web (HTML/CSS)", "Excel/Data Basics", or "Intro to Python".
+       - Set realistic timelines: "6-12 Months" for a complete career switch.
+    
+    2. IF the user has some technical background:
+       - You can recommend more intermediate roles.
+    
+    3. Be encouraging but REALISTIC. A cashier cannot become a Cloud Architect in 3 months.
+
     IMPORTANT: You must provide the response in TWO languages: English (en) and Bulgarian (bg).
 
-    Based on this profile, generate a JSON response with the following structure:
+    Based on this profile, generate a JSON response with the following structure.
+    
+    CRITICAL INSTRUCTIONS:
+    1. Replace all placeholder values (like "string") with ACTUAL, SPECIFIC content based on the user's profile.
+    2. Do NOT return the example strings.
+    3. Ensure the "articleContent" is detailed and educational, not just a summary.
+    4. Ensure the JSON is valid and strictly follows the structure below.
+
     {
       "en": {
-        "competencyGap": ["string", "string"], // List of 3-5 specific skills missing for the target role.
-        "recommendedPath": "string", // A specific job title or specialization path
-        "estimatedTime": "string", // e.g. "3-6 months"
-        "careerOutlook": "string", // A detailed paragraph (3-5 sentences) analyzing the current market demand, future growth projections, and potential salary range for this role. It should be informative and provide context, not just a short phrase.
-        "strengths": ["string", "string"], // List of 3 user's current strengths.
-        "weaknesses": ["string", "string"], // List of 2-3 areas for improvement
+        "competencyGap": ["Specific Skill 1", "Specific Skill 2", "Specific Skill 3"], // List of 3-5 specific skills missing for the target role.
+        "recommendedPath": "Target Job Title", // A specific job title or specialization path
+        "estimatedTime": "3-6 Months", // e.g. "3-6 months"
+        "careerOutlook": "Detailed market analysis...", // A detailed paragraph (3-5 sentences) analyzing the current market demand, future growth projections, and potential salary range for this role.
+        "strengths": ["Strength 1", "Strength 2", "Strength 3"], // List of 3 user's current strengths.
+        "weaknesses": ["Weakness 1", "Weakness 2"], // List of 2-3 areas for improvement
         "learningPath": [
           {
-            "topic": "string", // The main topic or skill gap being addressed
-            "articleContent": "string", // A VERY LONG, comprehensive, in-depth educational article (minimum 1000 words). It MUST be detailed. It should provide a solid introduction to the topic, explain key concepts, why it is critical for the user's target role, and how they can start learning it. Include practical examples, code snippets (if technical), and a 'Key Takeaways' section. Use Markdown formatting, including bold text, lists, and code blocks where relevant. It should be engaging, well-structured, and informative, like a high-quality Medium article. Do not be brief.
-            "recommendedCourse": { "title": "string", "provider": "Udemy", "duration": "string", "url": "string" } // A specific recommended Udemy course for this topic. IMPORTANT: Provide a REAL, VALID URL for a specific course. Do not use search URLs. If you are not 100% sure of the URL, find the most popular course for this topic on Udemy and use its likely URL structure or a very generic topic URL that is guaranteed to exist.
+            "topic": "Main Topic Name", // The main topic or skill gap being addressed
+            "articleContent": "Full Article Content...", // A comprehensive, in-depth educational article (approx. 600-800 words). It MUST be detailed. It should provide a solid introduction to the topic, explain key concepts, why it is critical for the user's target role, and how they can start learning it. Include practical examples, code snippets (if technical), and a 'Key Takeaways' section. IMPORTANT: Do NOT use HTML tags. Use standard Markdown only. Use triple backticks (\`\`\`) for code blocks and specify the language (e.g. \`\`\`javascript). Do not use single backticks for multi-line code. Use bold text, lists, and headers where relevant. It should be engaging, well-structured, and informative.",
+            "recommendedCourses": [
+              { 
+                "title": "Course Title", 
+                "provider": "Provider Name", // e.g. "Udemy", "Coursera", "edX", "YouTube", "FreeCodeCamp", "Pluralsight"
+                "duration": "Duration", 
+                "url": "https://valid-url.com", // A REAL, VALID URL. Do NOT use Google Search URLs. If you are not 100% sure of a specific course URL, link to the provider's topic page (e.g. 'https://www.udemy.com/topic/react/') or the main documentation page (e.g. 'https://react.dev/'). Prioritize free, high-quality resources like freeCodeCamp, MDN, or official documentation where the URL is stable.
+                "isPaid": true // boolean
+              }
+            ]
           }
         ]
       },
       "bg": {
         // Same structure as above, but all text content MUST be in Bulgarian.
-        "competencyGap": ["string", "string"],
-        "recommendedPath": "string",
-        "estimatedTime": "string",
-        "careerOutlook": "string",
-        "strengths": ["string", "string"],
-        "weaknesses": ["string", "string"],
+        "competencyGap": ["Умение 1", "Умение 2"],
+        "recommendedPath": "Целева позиция",
+        "estimatedTime": "Време за изпълнение",
+        "careerOutlook": "Детален анализ на пазара...",
+        "strengths": ["Сила 1", "Сила 2"],
+        "weaknesses": ["Слабост 1", "Слабост 2"],
         "learningPath": [
           {
-            "topic": "string",
-            "articleContent": "string", // Bulgarian translation/adaptation of the article.
-            "recommendedCourse": { "title": "string", "provider": "Udemy", "duration": "string", "url": "string" } // Use the same valid URL as the English version.
+            "topic": "Тема",
+            "articleContent": "Пълно съдържание на статията...", // Bulgarian translation/adaptation of the article.
+            "recommendedCourses": [
+              { 
+                "title": "Име на курса", 
+                "provider": "Доставчик", 
+                "duration": "Продължителност", 
+                "url": "https://valid-url.com",
+                "isPaid": true
+              }
+            ]
           }
         ]
       }

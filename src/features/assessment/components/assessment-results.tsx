@@ -106,24 +106,33 @@ export function AssessmentResults() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {insights.learningPath?.map((item, i) => (
-                <a 
-                  key={i} 
-                  href={item.recommendedCourse.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors group"
-                >
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <p className="font-medium text-sm group-hover:underline">{item.recommendedCourse.title}</p>
-                      <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              {insights.learningPath?.flatMap((item, i) => 
+                item.recommendedCourses.map((course, j) => (
+                  <a 
+                    key={`${i}-${j}`} 
+                    href={course.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors group"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium text-sm group-hover:underline">{course.title}</p>
+                        <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <span>{course.provider}</span>
+                        {course.isPaid ? (
+                           <Badge variant="outline" className="text-[10px] h-4 px-1 border-yellow-500/50 text-yellow-600">Paid</Badge>
+                        ) : (
+                           <Badge variant="outline" className="text-[10px] h-4 px-1 border-green-500/50 text-green-600">Free</Badge>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-xs text-muted-foreground">{item.recommendedCourse.provider}</p>
-                  </div>
-                  <Badge variant="secondary">{item.recommendedCourse.duration}</Badge>
-                </a>
-              ))}
+                    <Badge variant="secondary">{course.duration}</Badge>
+                  </a>
+                ))
+              )}
             </div>
           </CardContent>
         </Card>

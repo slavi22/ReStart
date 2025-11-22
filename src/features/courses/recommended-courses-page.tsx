@@ -30,39 +30,46 @@ export default function RecommendedCoursesPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {insights.learningPath?.map((item, i) => (
-          <Card key={i} className="flex flex-col overflow-hidden hover:shadow-lg transition-all duration-300 border-muted-foreground/20">
-            <div className="h-2 bg-primary/80 w-full" />
-            <CardHeader>
-              <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
-                <GraduationCap className="h-3 w-3" />
-                {item.topic}
-              </div>
-              <CardTitle className="text-lg leading-tight line-clamp-2 h-14">
-                {item.recommendedCourse.title}
-              </CardTitle>
-              <CardDescription className="flex items-center gap-2">
-                <span className="bg-secondary px-2 py-0.5 rounded text-xs font-medium text-secondary-foreground">
-                  {item.recommendedCourse.provider}
-                </span>
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Clock className="h-4 w-4" />
-                <span>{item.recommendedCourse.duration}</span>
-              </div>
-            </CardContent>
-            <CardFooter className="bg-muted/30 p-4 pt-4 border-t">
-              <Button asChild className="w-full gap-2 group">
-                <a href={item.recommendedCourse.url} target="_blank" rel="noopener noreferrer">
-                  {t('courses.viewCourse', 'View Course')}
-                  <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
+        {insights.learningPath?.flatMap((item, i) => 
+          item.recommendedCourses.map((course, j) => (
+            <Card key={`${i}-${j}`} className="flex flex-col overflow-hidden hover:shadow-lg transition-all duration-300 border-muted-foreground/20">
+              <div className="h-2 bg-primary/80 w-full" />
+              <CardHeader>
+                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
+                  <GraduationCap className="h-3 w-3" />
+                  {item.topic}
+                </div>
+                <CardTitle className="text-lg leading-tight line-clamp-2 h-14">
+                  {course.title}
+                </CardTitle>
+                <CardDescription className="flex items-center gap-2">
+                  <span className="bg-secondary px-2 py-0.5 rounded text-xs font-medium text-secondary-foreground">
+                    {course.provider}
+                  </span>
+                  {course.isPaid ? (
+                     <span className="border border-yellow-500/50 text-yellow-600 px-2 py-0.5 rounded text-xs font-medium">Paid</span>
+                  ) : (
+                     <span className="border border-green-500/50 text-green-600 px-2 py-0.5 rounded text-xs font-medium">Free</span>
+                  )}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock className="h-4 w-4" />
+                  <span>{course.duration}</span>
+                </div>
+              </CardContent>
+              <CardFooter className="bg-muted/30 p-4 pt-4 border-t">
+                <Button asChild className="w-full gap-2 group">
+                  <a href={course.url} target="_blank" rel="noopener noreferrer">
+                    {t('courses.viewCourse', 'View Course')}
+                    <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+          ))
+        )}
       </div>
     </div>
   );
