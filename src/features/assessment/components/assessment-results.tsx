@@ -4,17 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Clock, TrendingUp, BookOpen, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function AssessmentResults() {
   const { insights, resetAssessment } = useAssessment();
+  const { t } = useTranslation();
 
   if (!insights) return null;
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
       <div className="text-center space-y-2 mb-8">
-        <h2 className="text-3xl font-bold tracking-tight">Your Personalized Career Path</h2>
-        <p className="text-muted-foreground">Based on your profile, here is your roadmap to becoming a {insights.recommendedPath}.</p>
+        <h2 className="text-3xl font-bold tracking-tight">{t('assessment.results.title')}</h2>
+        <p className="text-muted-foreground">
+          {t('assessment.results.subtitle', { role: insights.recommendedPath })}
+        </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -22,18 +26,18 @@ export function AssessmentResults() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
-              Career Outlook
+              {t('assessment.results.outlook')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
-              <span className="text-sm font-medium">Estimated Time</span>
+              <span className="text-sm font-medium">{t('assessment.results.estimatedTime')}</span>
               <span className="flex items-center gap-1 text-sm font-bold">
                 <Clock className="h-4 w-4" /> {insights.estimatedTime}
               </span>
             </div>
             <div className="space-y-2">
-              <span className="text-sm font-medium">Market Demand</span>
+              <span className="text-sm font-medium">{t('assessment.results.marketDemand')}</span>
               <p className="text-sm text-muted-foreground">{insights.careerOutlook}</p>
             </div>
           </CardContent>
@@ -43,7 +47,7 @@ export function AssessmentResults() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-orange-500" />
-              Competency Gap Analysis
+              {t('assessment.results.gapAnalysis')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -52,7 +56,7 @@ export function AssessmentResults() {
                 <div key={i} className="space-y-1">
                   <div className="flex justify-between text-sm">
                     <span>{gap}</span>
-                    <span className="text-muted-foreground">Missing</span>
+                    <span className="text-muted-foreground">{t('assessment.results.missing')}</span>
                   </div>
                   <Progress value={15} className="h-2" />
                 </div>
@@ -67,7 +71,7 @@ export function AssessmentResults() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <CheckCircle2 className="h-5 w-5 text-green-500" />
-              Your Strengths
+              {t('assessment.results.strengths')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -86,7 +90,7 @@ export function AssessmentResults() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-blue-500" />
-              Recommended Courses
+              {t('assessment.results.courses')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -107,10 +111,10 @@ export function AssessmentResults() {
 
       <div className="flex justify-center pt-8 pb-12">
         <Button size="lg" onClick={resetAssessment} variant="outline">
-          Start New Assessment
+          {t('assessment.results.newAssessment')}
         </Button>
         <Button size="lg" className="ml-4">
-          Start Learning Path
+          {t('assessment.results.startPath')}
         </Button>
       </div>
     </div>

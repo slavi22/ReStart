@@ -21,17 +21,22 @@ export const generateGeminiInsight = async (data: AssessmentData): Promise<AiIns
     User Profile:
     ${JSON.stringify(data, null, 2)}
 
+    CONTEXT:
+    The user might be a complete beginner or a career switcher (e.g., a construction worker, retail associate) looking to break into tech.
+    If they have no technical skills, focus on transferable soft skills (leadership, time management, etc.) and recommend foundational courses.
+    Be encouraging and realistic.
+
     Based on this profile, generate a JSON response with the following structure:
     {
       "competencyGap": ["string", "string"], // List of 3-5 specific skills missing for the target role
       "recommendedPath": "string", // A specific job title or specialization path
       "estimatedTime": "string", // e.g. "3-6 months"
       "careerOutlook": "string", // A brief sentence about market demand
-      "strengths": ["string", "string"], // List of 3 user's current strengths
+      "strengths": ["string", "string"], // List of 3 user's current strengths (focus on transferable skills if no tech skills)
       "weaknesses": ["string", "string"], // List of 2-3 areas for improvement
       "recommendedCourses": [
         { "title": "string", "provider": "string", "duration": "string" }
-      ] // List of 3 recommended courses
+      ] // List of 3 recommended courses (start with basics if beginner)
     }
 
     IMPORTANT: Return ONLY the raw JSON. Do not include markdown formatting like \`\`\`json.

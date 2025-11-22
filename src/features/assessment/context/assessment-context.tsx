@@ -16,7 +16,7 @@ const initialData: AssessmentData = {
 const AssessmentContext = createContext<AssessmentContextType | undefined>(undefined);
 
 export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
-  const [currentStep, setStep] = useState<AssessmentStep>('basic-info');
+  const [currentStep, setCurrentStep] = useState<AssessmentStep>('basic-info');
   const [data, setData] = useState<AssessmentData>(initialData);
   const [insights, setInsights] = useState<AiInsight | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
     try {
       const result = await analyzeProfile(data);
       setInsights(result);
-      setStep('results');
+      setCurrentStep('results');
     } catch (error) {
       console.error("Failed to analyze profile", error);
     } finally {
@@ -41,7 +41,7 @@ export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
   const resetAssessment = () => {
     setData(initialData);
     setInsights(null);
-    setStep('basic-info');
+    setCurrentStep('basic-info');
   };
 
   return (
@@ -51,7 +51,7 @@ export const AssessmentProvider = ({ children }: { children: ReactNode }) => {
         data,
         insights,
         isLoading,
-        setStep,
+        setCurrentStep,
         updateData,
         submitAssessment,
         resetAssessment,
