@@ -1,52 +1,78 @@
+import { Outlet, useLocation } from "react-router";
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
+  SidebarTrigger
 } from "@/components/ui/sidebar.tsx";
 import { AppSidebar } from "@/components/app-sidebar.tsx";
-import { Separator } from "@radix-ui/react-separator";
+import { Separator } from "@/components/ui/separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
+  BreadcrumbSeparator
 } from "@/components/ui/breadcrumb.tsx";
+import { useTranslation } from "react-i18next";
+import { NavUsers } from "@/components/account";
+import { useAuth } from "@/features/auth/context/auth-context";
+import { AssessmentProvider } from "@/features/assessment/context/assessment-context";
 
 export default function RootLayout() {
+  const { t } = useTranslation();
+  const location = useLocation();
+
+  const getPageTitle = () => {
+    const path = location.pathname;
+    if (path === "/login") return t("sidebar.login");
+    if (path === "/register") return t("sidebar.register");
+    if (path === "/") return null;
+    if (path === "/assessment") return t("sidebar.assessment");
+    if (path === "/personalized-articles") return t("sidebar.personalizedArticles");
+    if (path.startsWith("/personalized-articles/")) return t("articles.readArticle", "Article");
+    if (path === "/recommended-courses") return t("sidebar.recommendedCourses");
+
+    return t("sidebar.assessment"); // Fallback
+  };
+  const { user } = useAuth();
+  const pageTitle = getPageTitle();
+
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-          <div className="flex items-center gap-2 px-3">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+    <AssessmentProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 justify-between">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/">{t("app.name")}</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  {pageTitle && (
+                    <>
+                      <BreadcrumbSeparator />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>{pageTitle}</BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </>
+                  )}
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+            <div style={{ display: "flex" }}>
+              <NavUsers user={user} />
+            </div>
+          </header>
+
+          <div className="flex flex-1 flex-col gap-4 p-4">
+            <Outlet />
           </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-          </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+        </SidebarInset>
+      </SidebarProvider>
+    </AssessmentProvider>
   );
 }

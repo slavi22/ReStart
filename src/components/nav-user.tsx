@@ -5,7 +5,12 @@ import {
   CreditCard,
   LogOut,
   Sparkles,
+  LogIn,
+  UserPlus,
 } from "lucide-react"
+import { Link } from "react-router"
+import { useTranslation } from "react-i18next"
+import { useAuth } from "@/features/auth/context/auth-context"
 
 import {
   Avatar,
@@ -34,10 +39,58 @@ export function NavUser({
   user: {
     name: string
     email: string
-    avatar: string
-  }
+    avatar?: string
+  } | null
 }) {
   const { isMobile } = useSidebar()
+  const { t } = useTranslation()
+  const { logout } = useAuth()
+
+  if (!user) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton
+                size="lg"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarFallback className="rounded-lg">G</AvatarFallback>
+                </Avatar>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">{t('sidebar.guestAccount')}</span>
+                </div>
+                <ChevronsUpDown className="ml-auto size-4" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+              side={isMobile ? "bottom" : "right"}
+              align="end"
+              sideOffset={4}
+            >
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild>
+                  <Link to="/login" className="cursor-pointer w-full flex items-center">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    {t('sidebar.login')}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/register" className="cursor-pointer w-full flex items-center">
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    {t('sidebar.register')}
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    )
+  }
 
   return (
     <SidebarMenu>
@@ -100,9 +153,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut />
-              Log out
+              {t('sidebar.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

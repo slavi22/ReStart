@@ -1,0 +1,176 @@
+{
+  "app": {
+    "name": "ReStart",
+    "tagline": "Your career, reinvented."
+  },
+  "language": "Language",
+  "home": {
+    "hero": {
+      "description": "ReStart helps you discover your potential and transition into a new career path with personalized AI-driven guidance.",
+      "getStarted": "Get Started",
+      "hasAccount": "I already have an account",
+      "beginAssessment": "Begin Assessment"
+    },
+    "features": {
+      "assessment": {
+        "title": "Skill Assessment",
+        "description": "Identify your transferable skills and find the perfect role for you."
+      },
+      "ai": {
+        "title": "AI Guidance",
+        "description": "Get personalized career roadmaps powered by advanced AI."
+      },
+      "steps": {
+        "title": "Actionable Steps",
+        "description": "Follow a clear path with recommended courses and milestones."
+      }
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "assessment": "Assessment",
+    "personalizedArticles": "Personalized Articles",
+    "recommendedCourses": "Recommended Courses",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "notLoggedIn": "Not Logged In",
+    "guestAccount": "Guest Account"
+  },
+  "assessment": {
+    "title": "Initial Skill Assessment",
+    "subtitle": "Let's analyze your profile to create a personalized career roadmap.",
+    "steps": {
+      "basicInfo": "Basic Info",
+      "skills": "Skills",
+      "experience": "Experience",
+      "goals": "Goals"
+    },
+    "basicInfo": {
+      "title": "Basic Information",
+      "description": "Let's start with who you are and what you do.",
+      "fullName": "Full Name",
+      "fullNamePlaceHolder": "John Doe",
+      "currentRole": "Current Role / Industry",
+      "currentRolePlaceholder": "e.g. Construction Worker, Retail Associate, Student",
+      "currentRoleHelp": "It's okay if you don't have a tech background! Tell us what you do now.",
+      "learningStyle": "Preferred Learning Style",
+      "selectStyle": "Select a style",
+      "styles": {
+        "visual": "Visual (Videos, Diagrams)",
+        "reading": "Reading (Documentation, Articles)",
+        "auditory": "Auditory (Podcasts, Lectures)",
+        "kinesthetic": "Kinesthetic (Hands-on, Projects)"
+      },
+      "next": "Next Step"
+    },
+    "skills": {
+      "title": "Skills Assessment",
+      "description": "List your skills. These can be technical (e.g., Coding) or soft skills (e.g., Leadership, Communication).",
+      "addSkill": "Add a Skill",
+      "placeholder": "e.g. Problem Solving, Teamwork, Excel",
+      "proficiency": "Proficiency Level",
+      "levels": {
+        "1": "Beginner",
+        "2": "Basic Understanding",
+        "3": "Intermediate",
+        "4": "Advanced",
+        "5": "Expert"
+      },
+      "yourSkills": "Your Skills",
+      "noSkills": "No skills added yet. Add at least one skill to proceed.",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "experience": {
+      "title": "Work Experience",
+      "description": "Tell us about your professional background. Include any job, even if it's not in tech.",
+      "add": "Add Experience",
+      "role": "Role Title",
+      "rolePlaceholder": "e.g. Site Manager, Cashier",
+      "company": "Company / Organization",
+      "companyPlaceholder": "e.g. ABC Construction",
+      "duration": "Duration",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "durationPlaceholder": "e.g. 2020 - Present",
+      "desc": "Description",
+      "descPlaceholder": "Briefly describe what you did...",
+      "cancel": "Cancel",
+      "save": "Add",
+      "back": "Back",
+      "next": "Next Step"
+    },
+    "goals": {
+      "title": "Career Goals",
+      "description": "Where do you want to go next?",
+      "targetRole": "Target Role",
+      "targetRolePlaceholder": "e.g. Software Developer, Data Analyst",
+      "targetRoleHelp": "If you're not sure, try \"Software Developer\" or \"IT Support\".",
+      "availability": "Availability for Learning",
+      "hours": {
+        "5-10": "5-10 hours/week",
+        "10-20": "10-20 hours/week",
+        "20+": "20+ hours/week",
+        "fullTime": "Full-time"
+      },
+      "back": "Back",
+      "complete": "Complete Assessment",
+      "analyzing": "Analyzing Profile...",
+      "waitMessage": "This may take up to a minute..."
+    },
+    "results": {
+      "title": "Your Personalized Career Path",
+      "subtitle": "Based on your profile, here is your roadmap to becoming a {{role}}.",
+      "outlook": "Career Outlook",
+      "estimatedTime": "Estimated Time",
+      "marketDemand": "Market Demand",
+      "gapAnalysis": "Competency Gap Analysis",
+      "missing": "Skill Gap",
+      "gapLevels": {
+        "critical": "Critical Gap",
+        "significant": "Significant Gap",
+        "moderate": "Moderate Gap",
+        "minor": "Minor Gap"
+      },
+      "strengths": "Your Strengths",
+      "courses": "Recommended Courses",
+      "newAssessment": "Start New Assessment",
+      "startPath": "Learn via personalized articles",
+      "viewCourses": "View Courses"
+    }
+  },
+  "courses": {
+    "title": "Personalized Articles",
+    "subtitle": "Curated resources to help you bridge your competency gaps.",
+    "readArticle": "Read Article",
+    "recommendedCourse": "Recommended Course",
+    "startLearning": "Start Learning",
+    "viewCourse": "View Course"
+  },
+  "articles": {
+    "back": "Back to Articles",
+    "mastering": "Mastering",
+    "recommendedResource": "Recommended Resource",
+    "startCourse": "Start Course"
+  },
+  "recommendedCourses": {
+    "title": "Recommended Courses",
+    "subtitle": "Top-rated courses selected to accelerate your career transition."
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "loginDesc": "Enter your email below to login to your account",
+    "registerTitle": "Create an account",
+    "registerDesc": "Enter your email below to create your account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submitLogin": "Sign In",
+    "submitRegister": "Sign Up",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "linkRegister": "Sign up",
+    "linkLogin": "Sign in"
+  }
+}
